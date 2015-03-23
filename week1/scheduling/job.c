@@ -38,9 +38,9 @@ int load_jobs(char *file_path, __out__ job_t **jobs) {
   fclose(f);
   return num_jobs;
 }
-int compare_diff_scores(job_t *j1, job_t *j2) {
-  return 0;
+int diff_cmp(job_t *j1, job_t *j2) {
+  return (j1->weight - j1->length) - (j2->weight - j2->length);
 }
-int compare_ratio_scores(job_t *j1, job_t *j2) {
-  return 0;
+int ratio_cmp(job_t *j1, job_t *j2) {
+  return (j1->weight * j2->length) - (j2->weight * j1->length);
 }

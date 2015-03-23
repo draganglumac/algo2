@@ -22,12 +22,12 @@
 #define __out__
 
 typedef struct {
-  int weight;
-  int length;
+  long weight;
+  long length;
 } job_t;
 
 int load_jobs(char *file_path, __out__ job_t **jobs);
-int compare_diff_scores(job_t *j1, job_t *j2);
-int compare_ratio_scores(job_t *j1, job_t *j2);
+int diff_cmp(job_t *j1, job_t *j2);
+int ratio_cmp(job_t *j1, job_t *j2);
 
 #endif // __JOB_H__

@@ -1,11 +1,11 @@
 all: clean diffs ratios
 
 diffs:
-	gcc -g -o diffs.bin diffs.c job.c
+	gcc -g -o d.bin diffs.c job.c
 
 ratios:
-	gcc -g -o ratios.bin ratios.c job.c
+	gcc -g -o r.bin ratios.c job.c
 
 clean:
-	-rm diffs.bin
-	-rm ratios.bin
+	-rm d.bin
+	-rm r.bin
