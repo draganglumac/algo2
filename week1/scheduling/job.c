@@ -38,9 +38,22 @@ int load_jobs(char *file_path, __out__ job_t **jobs) {
   fclose(f);
   return num_jobs;
 }
-int diff_cmp(job_t *j1, job_t *j2) {
-  return (j1->weight - j1->length) - (j2->weight - j2->length);
+int break_ties(long w1, long w2) {
+  return w1 - w2;
 }
-int ratio_cmp(job_t *j1, job_t *j2) {
-  return (j1->weight * j2->length) - (j2->weight * j1->length);
+int diff_cmp(const void *v1, const void *v2) {
+  job_t *j1 = (job_t *) v1, *j2 = (job_t *) v2;
+  int retval = (j1->weight - j1->length) - (j2->weight - j2->length);
+  if (0 == retval) {
+    return break_ties(j1->weight, j2->weight);
+  }
+  return retval;
+}
+int ratio_cmp(const void *v1, const void *v2) {
+  job_t *j1 = (job_t *) v1, *j2 = (job_t *) v2;
+  int retval = (j1->weight * j2->length) - (j2->weight * j1->length);
+  if (0 == retval) {
+    return break_ties(j1->weight, j2->weight);
+  }
+  return retval;
 }

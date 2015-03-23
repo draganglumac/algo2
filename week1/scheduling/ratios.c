@@ -19,18 +19,21 @@
 #include <stdio.h>
 #include "job.h"
 
-#define GT(x, y) (0  < ratio_cmp(x, y))
-#define EQ(x, y) (0 == ratio_cmp(x, y))
-#define LT(x, y) (0  > ratio_cmp(x, y))
-
 int main(int argc, char **argv) {
   job_t *jobs;
   int num_jobs, i;
 
-  num_jobs = load_jobs("jobs.txt", &jobs);
+  if (argc > 1) {
+    num_jobs = load_jobs(argv[1], &jobs);
+  }
+  else {
+    num_jobs = load_jobs("tests/jobs.txt", &jobs);
+  }
+
+  qsort(jobs, num_jobs, sizeof(job_t), ratio_cmp);
 
   long sum = 0, ct = 0;
-  for (i = 0; i < num_jobs; i++) {
+  for (i = num_jobs - 1; i >= 0; i--) {
     ct += jobs[i].length;
     sum += (jobs[i].weight * ct);
   }

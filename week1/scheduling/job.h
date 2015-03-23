@@ -27,7 +27,7 @@ typedef struct {
 } job_t;
 
 int load_jobs(char *file_path, __out__ job_t **jobs);
-int diff_cmp(job_t *j1, job_t *j2);
-int ratio_cmp(job_t *j1, job_t *j2);
+int diff_cmp(const void *j1, const void *j2);
+int ratio_cmp(const void *j1, const void *j2);
 
 #endif // __JOB_H__
