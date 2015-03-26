@@ -1,7 +1,7 @@
 /*
  * =====================================================================================
  *
- *       Filename:  main.c
+ *       Filename:  main.cpp
  *
  *    Description:  Solution for Prim's MST algorithm assignment
  *
@@ -15,7 +15,8 @@
  *
  * =====================================================================================
  */
-#include <stdlib.h>
+#include <iostream>
+
 #include "graph.h"
 #include "heap.h"
 

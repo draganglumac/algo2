@@ -19,34 +19,39 @@
 #ifndef __GRAPH_H__
 #define __GRAPH_H__
 
-typedef struct {
-  char *name;
+struct node {
+  std::string name;
   int index;
-} node;
 
-typedef struct _edge {
+  node(std::string name, int index);
+  ~node();
+};
+
+struct edge {
   node *n1;
   node *n2;
   int cost;
-  struct _edge *next;
-} edge;
+  edge *next;
 
-typedef struct {
+  edge(node *n1, node *n2, int cost);
+  ~edge();
+};
+
+struct edges {
   edge *head;
   edge *tail;
-} edges;
+};
 
-typedef struct {
-  edges **adj_list;
-} graph;
+class graph {
+  private:
+    edges **adj_list;
 
-node *node_create(char *name, int index);
-void node_destroy(node **nn);
-edge *edge_create(node *n1, node *n2, int cost);
-void edge_destroy(edge **ee);
-graph *graph_allocate(int num_nodes);
-void add_edge(graph *g, edge *e);
-graph *load_graph_from_file(const char *file_path);
-void graph_destroy(graph **g);
+  public:
+    graph(int num_nodes);
+    ~graph();
+
+    void add_edge(edge *e);
+    void load_graph_from_file(const char *file_path);
+};
 
 #endif // __GRAPH_H__

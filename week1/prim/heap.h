@@ -24,16 +24,21 @@
 // and > 0 if first comes after the second.
 typedef int (*key_compare)(void *, void *);
 
-typedef struct {
-  void **ordered;
-  key_compare kc;
-} heap;
+class heap {
+  private:
+    void **ordered;
+    key_compare kc;
+  
+  public:
+    heap();
+    heap(key_compare kc);
+    ~heap();
 
-heap *heap_create(key_compare kc);
-void heap_destroy(heap **h);
-void heap_heapify(heap *h, void **unordered);
-void heap_insert(heap *h, void *item);
-void heap_delete(heap *h, void *item);
-void *heap_extract_min(heap *h);
+    void set_key_compare_function(key_compare kc);
+    void heapify(void **unordered);
+    void insert(void *item);
+    void remove(void *item);
+    void *extract_min();
+};
 
 #endif // __HEAP_H__

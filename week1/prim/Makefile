@@ -1,7 +1,7 @@
 all: clean prim
 
 prim:
-	gcc -g -o prim.bin main.c graph.c heap.c
+	g++ -g -o prim.bin main.cpp graph.cpp heap.cpp
 
 clean:
 	-rm prim.bin
