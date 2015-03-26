@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  *
- *       Filename:  heap.cpp
+ *       Filename:  graph.c
  *
  *    Description:  
  *
  *        Version:  1.0
- *        Created:  25/03/2015 08:02:01
+ *        Created:  26/03/2015 15:37:53
  *       Revision:  none
  *       Compiler:  gcc
  *
@@ -15,12 +15,5 @@
  *
  * =====================================================================================
  */
+#include <stdlib.h>
 
-#include "heap.h"
-
-using namespace std;
-
-heap::heap()
-{
-  this->ordered = NULL;
-}

@@ -40,18 +40,23 @@ struct edge {
 struct edges {
   edge *head;
   edge *tail;
+
+  edges(); 
+  edges(edge *first, edge *last);
+  ~edges();
 };
 
 class graph {
   private:
-    edges **adj_list;
+    int num_nodes;
+    edges *adj_list;
 
   public:
     graph(int num_nodes);
     ~graph();
 
     void add_edge(edge *e);
-    void load_graph_from_file(const char *file_path);
+    void load_graph_from_file(const std::string file_path);
 };
 
 #endif // __GRAPH_H__
