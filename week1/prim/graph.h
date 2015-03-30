@@ -19,42 +19,43 @@
 #ifndef __GRAPH_H__
 #define __GRAPH_H__
 
+#include <vector>
+#include <map>
+#include <string>
+
+namespace graph {
+
 struct node {
   std::string name;
   int index;
 
-  node(std::string name, int index);
+  node(const std::string &name, int index);
+  node(const node &n);
   ~node();
 };
 
 struct edge {
-  node *n1;
-  node *n2;
+  int n1_index;
+  int n2_index;
   int cost;
-  edge *next;
 
-  edge(node *n1, node *n2, int cost);
+  edge(int n1, int n2, int cost);
+  edge(const edge &e);
   ~edge();
-};
-
-struct edges {
-  edge *head;
-  edge *tail;
-
-  edges(); 
-  edges(edge *first, edge *last);
-  ~edges();
 };
 
 class graph {
   private:
+    map<const std::string&, int index> node_indices;
     int num_nodes;
-    edges *adj_list;
+    int next_index;
+    vector<vector<edge *> > adj_list;
 
   public:
     graph(int num_nodes);
     ~graph();
 
+    int index_for_node_name(const std::string &node_name);
     void add_edge(edge *e);
     void load_graph_from_file(const std::string file_path);
 };
