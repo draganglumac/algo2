@@ -7,9 +7,9 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    testCompile group: 'de.bechte.junit', name: 'junit-hierarchicalcontextrunner', version: '4.12.0'
-}
-
 //println sourceSets['main'].java.srcDirs
 //println sourceSets['test'].java.srcDirs
+
+dependencies {
+    testCompile group: 'de.bechte.junit', name: 'junit-hierarchicalcontextrunner', version: '4.11.+'
+}
