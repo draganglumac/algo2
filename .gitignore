@@ -1,5 +1,8 @@
 *.dSYM
 *.bin
-*.idea
+.idea
 *.iml
 out
+build
+.gradle
+
