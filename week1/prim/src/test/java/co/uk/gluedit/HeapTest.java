@@ -11,13 +11,13 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(HierarchicalContextRunner.class)
 public class HeapTest {
-    private Heap<Integer> h;
+    private Heap<Integer> heap;
 
     @Before public void setUp() {
-        h = new Heap<>();
+        heap = new Heap<>();
     }
     @Test public void testEmptyHeap() {
-        assertTrue(h.isEmpty());
-        assertEquals(h.extractMin(), null);
+        assertTrue(heap.isEmpty());
+        assertEquals(heap.extractMin(), null);
     }
 }
