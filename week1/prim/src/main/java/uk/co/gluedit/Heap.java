@@ -19,7 +19,7 @@ public class Heap<T extends Comparable<T>> {
     }
 
     private void bubbleUp() {
-        int index = pq.size() - 1; =
+        int index = pq.size() - 1;
         int parent = parentForIndex(index);
         while (index > 0) {
             if (0 < pq.get(parent).compareTo(pq.get(index))) {
@@ -32,13 +32,38 @@ public class Heap<T extends Comparable<T>> {
         }
     }
 
+    private int getSwapIndex(int index) {
+        int left = index * 2 + 1;
+        int right = index * 2 + 2;
+        if (right < pq.size()) {
+            if (0 > pq.get(right).compareTo(pq.get(left)))
+                return right;
+            else
+                return left;
+        }
+        else if (left < pq.size()) {
+            return left;
+        }
+        return index;
+    }
+
     private void bubbleDown() {
-        // TODO
+        int index = 0;
+        int swapIndex = getSwapIndex(index);
+        while (swapIndex < pq.size()) {
+            if (0 < pq.get(index).compareTo(pq.get(swapIndex))) {
+                swapElementsAt(index, swapIndex);
+                index = swapIndex;
+                swapIndex = getSwapIndex(index);
+                continue;
+            }
+            break;
+        }
     }
     private void swapElementsAt(int parent, int index) {
         T temp = pq.get(index);
-        pq.add(index, pq.get(parent));
-        pq.add(parent, temp);
+        pq.set(index, pq.get(parent));
+        pq.set(parent, temp);
     }
 
     private int parentForIndex(int index) {
@@ -54,10 +79,14 @@ public class Heap<T extends Comparable<T>> {
 
     public T extractMin() {
         if (isEmpty()) return null;
-        T min = pq.get(0);
-        pq.add(0, pq.remove(pq.size() - 1));
-        bubbleDown();
-        return min;
+        if (pq.size() > 1) {
+            T min = pq.get(0);
+            pq.set(0, pq.remove(pq.size() - 1));
+            bubbleDown();
+            return min;
+        }
+        else
+            return pq.remove(0);
     }
 
     public void remove(T el) {

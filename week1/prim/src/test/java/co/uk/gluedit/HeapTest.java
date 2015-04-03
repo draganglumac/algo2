@@ -31,6 +31,17 @@ public class HeapTest {
         for (Integer i : order)
             assertEquals(i, heap.extractMin());
     }
+    @Test public void testTwoElements() {
+        heap.insert(1);
+        heap.insert(2);
+        assertEquals(heap.extractMin(), new Integer(1));
+        assertEquals(heap.extractMin(), new Integer(2));
+
+        heap.insert(2);
+        heap.insert(1);
+        assertEquals(heap.extractMin(), new Integer(1));
+        assertEquals(heap.extractMin(), new Integer(2));
+    }
     @Test public void tesHeapify() {
         Integer[] nums = {1, 2, 3};
         assertOrder(nums, nums);
@@ -50,15 +61,10 @@ public class HeapTest {
         Integer[] nums6 = {3, 2, 1};
         assertOrder(nums6, nums);
     }
-    @Test public void testTwoElements() {
-        heap.insert(1);
-        heap.insert(2);
-        assertEquals(heap.extractMin(), new Integer(1));
-        assertEquals(heap.extractMin(), new Integer(2));
-
-        heap.insert(2);
-        heap.insert(1);
-        assertEquals(heap.extractMin(), new Integer(1));
-        assertEquals(heap.extractMin(), new Integer(2));
+    @Test public void testRandom() {
+        Integer[] nums = {5, 1, 3, 7, 2, 8, 10, 9, 4, 6};
+        heap.heapify(nums);
+        for (int i = 1; i <= 10; i++)
+            assertEquals((Integer) i, heap.extractMin());
     }
 }
