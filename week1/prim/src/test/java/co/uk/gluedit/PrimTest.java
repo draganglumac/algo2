@@ -43,29 +43,38 @@ public class PrimTest {
     @Test
     public void testOneEdgePrim() throws IOException {
         Graph g = p.loadGraph(getSystemResourceByName("oneEdge.txt"));
-        assertEquals(new Long(42), p.computeMst(g).cost());
+        MST mst = p.computeMst(g);
+        assertEquals(new Long(42), mst.cost());
+        assertTrue(mst.edges.size() == g.nodes().size() - 1);
     }
 
     @Test
     public void testThreeNodePrim() throws IOException {
         Graph g = p.loadGraph(getSystemResourceByName("klein.txt"));
-        assertEquals(new Long(66), p.computeMst(g).cost());
+        MST mst = p.computeMst(g);
+        assertEquals(new Long(66), mst.cost());
+        assertTrue(mst.edges.size() == g.nodes().size() - 1);
+
 
         g = p.loadGraph(getSystemResourceByName("drei.txt"));
-        assertEquals(new Long(36), p.computeMst(g).cost());
+        mst = p.computeMst(g);
+        assertEquals(new Long(36), mst.cost());
+        assertTrue(mst.edges.size() == g.nodes().size() - 1);
     }
 
     @Test
     public void testFourNodePrim() throws IOException {
         Graph g = p.loadGraph(getSystemResourceByName("four.txt"));
-        assertEquals(new Long(7), p.computeMst(g).cost());
+        MST mst = p.computeMst(g);
+        assertEquals(new Long(7), mst.cost());
+        assertTrue(mst.edges.size() == g.nodes().size() - 1);
     }
 
     @Test
     public void testAssignment() throws IOException {
         Graph g = p.loadGraph(getSystemResourceByName("edges.txt"));
         MST mst = p.computeMst(g);
-        assertTrue(mst.edges.size() >= g.nodes().size() - 1);
+        assertTrue(mst.edges.size() == g.nodes().size() - 1);
         assertEquals(new Long(-3612829), mst.cost());
     }
 }
