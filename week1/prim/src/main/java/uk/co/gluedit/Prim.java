@@ -20,6 +20,7 @@ public class Prim {
         }
         int cost = Integer.parseInt(bits[2]);
         g.addEdge(src, dest, cost);
+        g.addEdge(dest, src, cost);
     }
 
     private Graph graphFromInputStream(InputStream is) throws IOException {

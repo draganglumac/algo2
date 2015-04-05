@@ -6,13 +6,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.gluedit.Graph;
 import uk.co.gluedit.MST;
-import uk.co.gluedit.Node;
 import uk.co.gluedit.Prim;
 
 import java.io.IOException;
 import java.net.URL;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(HierarchicalContextRunner.class)
 public class PrimTest {
@@ -64,6 +64,8 @@ public class PrimTest {
     @Test
     public void testAssignment() throws IOException {
         Graph g = p.loadGraph(getSystemResourceByName("edges.txt"));
-        assertEquals(new Long(-830430), p.computeMst(g).cost());
+        MST mst = p.computeMst(g);
+        assertTrue(mst.edges.size() >= g.nodes().size() - 1);
+        assertEquals(new Long(-3612829), mst.cost());
     }
 }
