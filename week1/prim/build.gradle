@@ -7,6 +7,13 @@ repositories {
     mavenCentral()
 }
 
+sourceSets {
+    test {
+        resources {
+            srcDir 'graphs'
+        }
+    }
+}
 dependencies {
     testCompile group: 'de.bechte.junit', name: 'junit-hierarchicalcontextrunner', version: '4.11.+'
 }
