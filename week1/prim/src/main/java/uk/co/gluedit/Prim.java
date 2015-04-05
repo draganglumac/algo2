@@ -65,12 +65,10 @@ public class Prim {
                             n2.edge = e;
                             heap.insert(n2);
                         }
-                        else {
+                        else if (0 > e.cost.compareTo(n2.edge.cost)) {
                             Integer i = heap.indexForElement(n2);
-                            if (0 > e.cost.compareTo(n2.edge.cost)) {
-                                n2.edge = e;
-                                heap.balanceHeapForDecrease(i);
-                            }
+                            n2.edge = e;
+                            heap.balanceHeapForDecrease(i);
                         }
                     }
                 }
