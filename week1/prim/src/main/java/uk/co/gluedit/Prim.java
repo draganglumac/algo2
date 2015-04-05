@@ -2,8 +2,24 @@ package uk.co.gluedit;
 
 import java.io.*;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
 
 public class Prim {
+    private class NodeWeight implements Comparable<NodeWeight> {
+        public Node n;
+        public Integer weight;
+
+        public NodeWeight(Node n, Integer weight) {
+            this.n = n;
+            this.weight = weight;
+        }
+
+        public int compareTo(NodeWeight other) {
+            return weight.compareTo(other.weight);
+        }
+    }
+
     private void addEdge(Graph g, String line) {
         String[] bits = line.split("\\s");
         Node src = new Node(bits[0]);
@@ -33,4 +49,24 @@ public class Prim {
         FileInputStream fis = new FileInputStream(filePath);
         return graphFromInputStream(fis);
     }
+
+    public MST computeMst(Graph g) {
+        MST mst = new MST();
+        HashMap<Node, Boolean> visited = new HashMap<>();
+        Heap<NodeWeight> heap = new Heap<>();
+        List<Node> nodes = g.nodes();
+        for (Node n : nodes) {
+            for (Edge e : g.edgesForNode(n)) {
+                Node n2 = g.nodeForIndex(e.n2);
+                if (! visited.get(n2)) {
+                    if (heap.indexForElement(n2) != null) {
+
+                    }
+                }
+            }
+            visited.put(n, true);
+        }
+        return mst;
+    }
+
 }
