@@ -35,14 +35,35 @@ public class PrimTest {
         String filePath = getSystemResourceByName("klein.txt").getFile();
         g = p.loadGraph(filePath);
         assertEquals(g.nodes().size(), 3);
-        assertEquals(g.edgesForNode(new Node("1")).size(), 1);
-        assertEquals(g.edgesForNode(new Node("2")).size(), 2);
-        assertEquals(g.edgesForNode(new Node("3")).size(), 1);
+        assertEquals(g.edgesForNode(g.nodeForIndex(0)).size(), 1);
+        assertEquals(g.edgesForNode(g.nodeForIndex(1)).size(), 2);
+        assertEquals(g.edgesForNode(g.nodeForIndex(2)).size(), 1);
     }
 
     @Test
     public void testOneEdgePrim() throws IOException {
         Graph g = p.loadGraph(getSystemResourceByName("oneEdge.txt"));
-        assertEquals((Integer) 42, p.computeMst(g).cost());
+        assertEquals(new Long(42), p.computeMst(g).cost());
+    }
+
+    @Test
+    public void testThreeNodePrim() throws IOException {
+        Graph g = p.loadGraph(getSystemResourceByName("klein.txt"));
+        assertEquals(new Long(66), p.computeMst(g).cost());
+
+        g = p.loadGraph(getSystemResourceByName("drei.txt"));
+        assertEquals(new Long(36), p.computeMst(g).cost());
+    }
+
+    @Test
+    public void testFourNodePrim() throws IOException {
+        Graph g = p.loadGraph(getSystemResourceByName("four.txt"));
+        assertEquals(new Long(7), p.computeMst(g).cost());
+    }
+
+    @Test
+    public void testAssignment() throws IOException {
+        Graph g = p.loadGraph(getSystemResourceByName("edges.txt"));
+        assertEquals(new Long(-830430), p.computeMst(g).cost());
     }
 }

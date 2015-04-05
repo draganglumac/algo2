@@ -6,10 +6,18 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Prim {
-    private void addEdge(Graph g, String line) {
+    private void addEdge(Graph g, String line, HashMap<String, PrimNode> processed) {
         String[] bits = line.split("\\s");
-        Node src = new PrimNode(bits[0]);
-        Node dest = new PrimNode(bits[1]);
+        PrimNode src = processed.get(bits[0]);
+        if (src == null) {
+            src = new PrimNode(bits[0]);
+            processed.put(bits[0], src);
+        }
+        PrimNode dest = processed.get(bits[1]);
+        if (dest == null) {
+            dest = new PrimNode(bits[1]);
+            processed.put(bits[1], dest);
+        }
         int cost = Integer.parseInt(bits[2]);
         g.addEdge(src, dest, cost);
     }
@@ -18,9 +26,10 @@ public class Prim {
         BufferedReader buffy = new BufferedReader(new InputStreamReader(is));
         String line;
         Graph g = new Graph();
+        HashMap<String, PrimNode> processed = new HashMap<>();
         while ((line = buffy.readLine()) != null) {
-            if (line.matches("^\\d+\\s\\d+\\s-?\\d+$")) {
-                addEdge(g, line);
+            if (line.matches("^\\w+\\s\\w+\\s-?\\d+$")) {
+                addEdge(g, line, processed);
             }
         }
         return g;
@@ -41,19 +50,25 @@ public class Prim {
         HashMap<Node, Boolean> visited = new HashMap<>();
         Heap<PrimNode> heap = new Heap<>();
         List<Node> nodes = g.nodes();
-        for (Node n : nodes) {
-            if (!visited.get(n)) {
+        PrimNode startNode = (PrimNode) nodes.get(0);
+        heap.insert(startNode);
+        while (!heap.isEmpty()) {
+            PrimNode n = heap.extractMin();
+            if (n.edge != null) {
+                mst.edges.add(n.edge);
+            }
+            if (visited.get(n) == null) {
                 for (Edge e : g.edgesForNode(n)) {
                     PrimNode n2 = (PrimNode) g.nodeForIndex(e.n2);
-                    if (!visited.get(n2)) {
-                        if (n2.weight == 0) {
-                            n2.weight = e.cost;
+                    if (visited.get(n2) == null) {
+                        if (n2.edge == null) {
+                            n2.edge = e;
                             heap.insert(n2);
                         }
                         else {
                             Integer i = heap.indexForElement(n2);
-                            if (0 > e.cost.compareTo(n2.weight)) {
-                                n2.weight = e.cost;
+                            if (0 > e.cost.compareTo(n2.edge.cost)) {
+                                n2.edge = e;
                                 heap.balanceHeapForDecrease(i);
                             }
                         }

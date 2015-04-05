@@ -1,14 +1,14 @@
 package uk.co.gluedit;
 
 public class PrimNode extends Node implements Comparable<PrimNode> {
-    public Integer weight;
+    public Edge edge;
 
     public PrimNode(String name) {
         super(name);
-        weight = 0;
+        edge = null;
     }
 
     public int compareTo(PrimNode other) {
-        return weight.compareTo(other.weight);
+        return edge.cost.compareTo(other.edge.cost);
     }
 }

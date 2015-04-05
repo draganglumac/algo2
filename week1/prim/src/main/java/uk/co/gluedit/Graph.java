@@ -17,7 +17,7 @@ public class Graph {
     }
 
     private Integer next_index;
-    private HashMap<String, Integer> nodes;
+    private HashMap<Node, Integer> nodes;
     private ArrayList<Edges> adj_list;
 
     public Graph() {
@@ -29,26 +29,25 @@ public class Graph {
     public List<Node> nodes() {
         if (nodes.keySet().isEmpty()) return null;
         return nodes.keySet().stream()
-                .map(Node::new)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public List<Edge> edgesForNode(Node n) {
         if (n == null) return null;
-        return adj_list.get(nodes.get(n.name)).edges;
+        return adj_list.get(nodes.get(n)).edges;
     }
 
     public void addNode(Node n) {
         if (n != null) {
-            nodes.put(n.name, next_index);
+            nodes.put(n, next_index);
             adj_list.add(new Edges(n));
             next_index++;
         }
     }
 
     public Integer indexForNode(Node n) {
-        if (null == nodes.get(n.name)) addNode(n);
-        return nodes.get(n.name);
+        if (null == nodes.get(n)) addNode(n);
+        return nodes.get(n);
     }
 
     public Node nodeForIndex(Integer i) {

@@ -10,8 +10,8 @@ public class MST {
         edges = new ArrayList<>();
     }
 
-    public Integer cost() {
-        int sum = 0;
+    public Long cost() {
+        long sum = 0;
         for (Edge e : edges) {
             sum += e.cost;
         }

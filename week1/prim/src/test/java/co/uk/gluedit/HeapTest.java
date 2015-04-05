@@ -86,15 +86,15 @@ public class HeapTest {
         heap.heapify(nums);
 
         heap.remove(3);
-        assertEquals(1, heap.indexForElement(4));
+        assertEquals((Integer) 1, heap.indexForElement(4));
 
-        assertEquals(0, heap.indexForElement(1));
+        assertEquals((Integer) 0, heap.indexForElement(1));
         heap.remove(5);
-        assertEquals(1, heap.indexForElement(4));
-        assertEquals(2, heap.indexForElement(2));
+        assertEquals((Integer) 1, heap.indexForElement(4));
+        assertEquals((Integer) 2, heap.indexForElement(2));
 
         heap.remove(1);
-        assertEquals(0, heap.indexForElement(2));
-        assertEquals(1, heap.indexForElement(4));
+        assertEquals((Integer) 0, heap.indexForElement(2));
+        assertEquals((Integer) 1, heap.indexForElement(4));
     }
 }
