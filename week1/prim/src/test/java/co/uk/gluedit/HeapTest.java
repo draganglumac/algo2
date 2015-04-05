@@ -12,26 +12,34 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(HierarchicalContextRunner.class)
 public class HeapTest {
-    private Heap<Integer>heap;
+    private Heap<Integer> heap;
 
-    @Before public void setUp() {
+    @Before
+    public void setUp() {
         heap = new Heap<>();
     }
-    @Test public void testEmptyHeap() {
+
+    @Test
+    public void testEmptyHeap() {
         assertTrue(heap.isEmpty());
         assertEquals(heap.extractMin(), null);
     }
-    @Test public void testSingleElement() {
+
+    @Test
+    public void testSingleElement() {
         heap.insert(42);
         assertFalse(heap.isEmpty());
         assertEquals(heap.extractMin(), new Integer(42));
     }
+
     private void assertOrder(Integer[] original, Integer[] order) {
         heap.heapify(original);
         for (Integer i : order)
             assertEquals(i, heap.extractMin());
     }
-    @Test public void testTwoElements() {
+
+    @Test
+    public void testTwoElements() {
         heap.insert(1);
         heap.insert(2);
         assertEquals(heap.extractMin(), new Integer(1));
@@ -42,7 +50,9 @@ public class HeapTest {
         assertEquals(heap.extractMin(), new Integer(1));
         assertEquals(heap.extractMin(), new Integer(2));
     }
-    @Test public void tesHeapify() {
+
+    @Test
+    public void tesHeapify() {
         Integer[] nums = {1, 2, 3};
         assertOrder(nums, nums);
 
@@ -61,10 +71,30 @@ public class HeapTest {
         Integer[] nums6 = {3, 2, 1};
         assertOrder(nums6, nums);
     }
-    @Test public void testRandom() {
+
+    @Test
+    public void testRandom() {
         Integer[] nums = {5, 1, 3, 7, 2, 8, 10, 9, 4, 6};
         heap.heapify(nums);
         for (int i = 1; i <= 10; i++)
             assertEquals((Integer) i, heap.extractMin());
+    }
+
+    @Test
+    public void testRemove() {
+        Integer[] nums = {3, 1, 2, 5, 4};
+        heap.heapify(nums);
+
+        heap.remove(3);
+        assertEquals(1, heap.indexForElement(4));
+
+        assertEquals(0, heap.indexForElement(1));
+        heap.remove(5);
+        assertEquals(1, heap.indexForElement(4));
+        assertEquals(2, heap.indexForElement(2));
+
+        heap.remove(1);
+        assertEquals(0, heap.indexForElement(2));
+        assertEquals(1, heap.indexForElement(4));
     }
 }

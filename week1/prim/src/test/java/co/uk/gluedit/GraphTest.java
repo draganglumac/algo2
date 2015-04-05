@@ -14,18 +14,25 @@ import static org.junit.Assert.assertTrue;
 public class GraphTest {
     private Graph g;
 
-    @Before public void setUp() {
+    @Before
+    public void setUp() {
         g = new Graph();
     }
-    @Test public void testEqualNodes() {
+
+    @Test
+    public void testEqualNodes() {
         Node n1 = new Node("node"), n2 = new Node("node");
         assertEquals(n1, n2);
     }
-    @Test public void testEmptyGraph() {
+
+    @Test
+    public void testEmptyGraph() {
         assertEquals(g.nodes(), null);
         assertEquals(g.edgesForNode(null), null);
     }
-    @Test public void testSingleVertexGraph() {
+
+    @Test
+    public void testSingleVertexGraph() {
         Node n = new Node("node1");
         g.addNode(n);
         assertTrue(g.nodes().contains(n));
@@ -45,22 +52,29 @@ public class GraphTest {
             assertEquals(cost, g.edgesForNode(n1).get(0).cost);
         }
 
-        @Before public void setUp() {
+        @Before
+        public void setUp() {
             n1 = new Node("n1");
             n2 = new Node("n2");
         }
-        @Test public void testSingleEdgeDirectedGraph() {
+
+        @Test
+        public void testSingleEdgeDirectedGraph() {
             g.addEdge(n1, n2, 42);
             assertEdge(n1, n2, 42);
             assertTrue(g.edgesForNode(n2).isEmpty());
         }
-        @Test public void testSingleEdgeUndirectedGraph() {
+
+        @Test
+        public void testSingleEdgeUndirectedGraph() {
             g.addEdge(n1, n2, 42);
             g.addEdge(n2, n1, 42);
             assertEdge(n1, n2, 42);
             assertEdge(n2, n1, 42);
         }
-        @Test public void testSingleLoopGraph() {
+
+        @Test
+        public void testSingleLoopGraph() {
             g.addEdge(n1, n2, 42);
             g.addEdge(n2, n1, 43);
             assertEdge(n1, n2, 42);
@@ -78,21 +92,28 @@ public class GraphTest {
             assertEquals(n2, g.nodeForIndex(g.edgesForNode(n1).get(index).n2));
             assertEquals(cost, g.edgesForNode(n1).get(index).cost);
         }
+
         private void assertEdge(Node n1, Node n2, Integer cost) {
             assertEdge(n1, n2, cost, 0);
         }
-        @Before public void setUp() {
+
+        @Before
+        public void setUp() {
             n1 = new Node("n1");
             n2 = new Node("n2");
             n3 = new Node("n3");
         }
-        @Test public void testPathGraph() {
+
+        @Test
+        public void testPathGraph() {
             g.addEdge(n1, n2, 1);
             g.addEdge(n2, n3, 2);
             assertEdge(n1, n2, 1);
             assertEdge(n2, n3, 2);
         }
-        @Test public void testTree() {
+
+        @Test
+        public void testTree() {
             g.addEdge(n1, n2, 1);
             g.addEdge(n1, n3, 2);
             assertEdge(n1, n2, 1);
@@ -100,7 +121,9 @@ public class GraphTest {
             assertTrue(g.edgesForNode(n2).isEmpty());
             assertTrue(g.edgesForNode(n3).isEmpty());
         }
-        @Test public void testUndirectedTree() {
+
+        @Test
+        public void testUndirectedTree() {
             g.addEdge(n1, n2, 1);
             g.addEdge(n2, n1, 1);
             g.addEdge(n1, n3, 2);
@@ -110,7 +133,9 @@ public class GraphTest {
             assertEdge(n2, n1, 1);
             assertEdge(n3, n1, 2);
         }
-        @Test public void testSourceSinkGraph() {
+
+        @Test
+        public void testSourceSinkGraph() {
             g.addEdge(n1, n2, 1);
             g.addEdge(n1, n3, 2);
             g.addEdge(n2, n3, -5);
@@ -118,7 +143,9 @@ public class GraphTest {
             assertEdge(n1, n3, 2, 1);
             assertEdge(n2, n3, -5);
         }
-        @Test public void testUndirectedLoop() {
+
+        @Test
+        public void testUndirectedLoop() {
             g.addEdge(n1, n2, 1);
             g.addEdge(n2, n1, 1);
             g.addEdge(n1, n3, 2);
