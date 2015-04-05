@@ -6,24 +6,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Prim {
-    private class NodeWeight implements Comparable<NodeWeight> {
-        public Node n;
-        public Integer weight;
-
-        public NodeWeight(Node n, Integer weight) {
-            this.n = n;
-            this.weight = weight;
-        }
-
-        public int compareTo(NodeWeight other) {
-            return weight.compareTo(other.weight);
-        }
-    }
-
     private void addEdge(Graph g, String line) {
         String[] bits = line.split("\\s");
-        Node src = new Node(bits[0]);
-        Node dest = new Node(bits[1]);
+        Node src = new PrimNode(bits[0]);
+        Node dest = new PrimNode(bits[1]);
         int cost = Integer.parseInt(bits[2]);
         g.addEdge(src, dest, cost);
     }
@@ -53,14 +39,24 @@ public class Prim {
     public MST computeMst(Graph g) {
         MST mst = new MST();
         HashMap<Node, Boolean> visited = new HashMap<>();
-        Heap<NodeWeight> heap = new Heap<>();
+        Heap<PrimNode> heap = new Heap<>();
         List<Node> nodes = g.nodes();
         for (Node n : nodes) {
-            for (Edge e : g.edgesForNode(n)) {
-                Node n2 = g.nodeForIndex(e.n2);
-                if (! visited.get(n2)) {
-                    if (heap.indexForElement(n2) != null) {
-
+            if (!visited.get(n)) {
+                for (Edge e : g.edgesForNode(n)) {
+                    PrimNode n2 = (PrimNode) g.nodeForIndex(e.n2);
+                    if (!visited.get(n2)) {
+                        if (n2.weight == 0) {
+                            n2.weight = e.cost;
+                            heap.insert(n2);
+                        }
+                        else {
+                            Integer i = heap.indexForElement(n2);
+                            if (0 > e.cost.compareTo(n2.weight)) {
+                                n2.weight = e.cost;
+                                heap.balanceHeapForDecrease(i);
+                            }
+                        }
                     }
                 }
             }

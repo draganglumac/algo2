@@ -108,8 +108,11 @@ public class Heap<T extends Comparable<T>> {
         indices.remove(el);
     }
 
-    public int indexForElement(T el) {
+    public Integer indexForElement(T el) {
         return indices.get(el);
     }
 
+    public void balanceHeapForDecrease(int i) {
+        bubbleUp(i);
+    }
 }
