@@ -16,8 +16,6 @@ public class Graph {
         }
     }
 
-    ;
-
     private Integer next_index;
     private HashMap<String, Integer> nodes;
     private ArrayList<Edges> adj_list;

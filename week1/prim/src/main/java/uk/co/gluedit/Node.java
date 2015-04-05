@@ -9,8 +9,7 @@ public class Node {
 
     @Override
     public boolean equals(Object o) {
-        if (o.getClass() == this.getClass())
-            return ((Node) o).name.equals(name);
-        return false;
+        return o.getClass() == this.getClass()
+                && ((Node) o).name.equals(name);
     }
 }
